@@ -23,7 +23,7 @@ class NavBar extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://localhost:4000/book`)
+        axios.get(`http://${process.env.REACT_APP_PRODUCTION_IP}/book`)
             .then(res => {
                 this.setState({
                     books: res.data.map(book=>(
