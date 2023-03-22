@@ -46,7 +46,7 @@ handleAuthor = () => {
 
     this.setState({error: "Must choose an image for the author"})
   }else{
-  axios.post('http://${process.env.REACT_APP_PRODUCTION_IP}/admin/author', aformData,{
+  axios.post(`http://${process.env.REACT_APP_PRODUCTION_IP}/admin/author`, aformData,{
     headers: {
       'Content-Type': 'multipart/form-data'
     }
