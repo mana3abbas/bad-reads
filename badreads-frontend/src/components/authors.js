@@ -13,7 +13,7 @@ export default class Users extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://${process.env.REACT_APP_PRODUCTION_IP}/author')
+        axios.get(`http://${process.env.REACT_APP_PRODUCTION_IP}/author`)
             .then(res => {
                 this.setState({ usersCollection: res.data });
             })
