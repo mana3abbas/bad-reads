@@ -73,7 +73,7 @@ onCategoriesDropdownSelected = (e)=> {
         aformData.append("category",this.state.category)
         aformData.append("author",this.state.author)        
         if(this.state.img) aformData.append("img",this.state.img)
-        axios.patch('http://${process.env.REACT_APP_PRODUCTION_IP}/admin/book/'+this.props.location.state.details._id, aformData,{
+        axios.patch(`http://${process.env.REACT_APP_PRODUCTION_IP}/admin/book/`+this.props.location.state.details._id, aformData,{
           headers: {
             'Content-Type': 'multipart/form-data'
           }

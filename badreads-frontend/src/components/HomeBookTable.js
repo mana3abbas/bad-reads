@@ -41,7 +41,7 @@ class HomeBookTable extends Component {
         let userId = getUser().userId
         let bookId = this.state.books._id
         
-        axios.post(`http://127.0.0.1:4000/userBook/`, {
+        axios.post(`http://${process.env.REACT_APP_PRODUCTION_IP}/userBook/`, {
                 userId,
                 bookId,
                 action
@@ -73,7 +73,7 @@ class HomeBookTable extends Component {
         let userId = getUser().userId
         let bookId = this.state.books._id
         
-        axios.put(`http://127.0.0.1:4000/userBook/${userId}/${bookId}`, {
+        axios.put(`http://${process.env.REACT_APP_PRODUCTION_IP}/userBook/${userId}/${bookId}`, {
                 action
             }).catch(function (error) {
                 console.log(error);
