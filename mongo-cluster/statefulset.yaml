@@ -17,7 +17,8 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: mongodb
-        image: mongo:6
+        image: <yourImage>
+        imagePullPolicy: Always
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
@@ -29,15 +30,14 @@ spec:
             secretKeyRef:
               name: mongo-creds
               key: password
-        command: ["/bin/sh"]
-        args: ["-c", "mongod --replSet=rs0 --bind_ip_all"]
+        args: ["--replSet", "badreads", "--keyFile","/app/mongodb.key"]
         resources:
           limits:
-            cpu: 1
-            memory: 1500Mi
+            cpu: 500m
+            memory: 500Mi
           requests:
-            cpu: 1
-            memory: 1000Mi
+            cpu: 500m
+            memory: 500Mi
         volumeMounts:
         - name: "mongo-data-dir"
           mountPath: "/data/db"
@@ -49,5 +49,5 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 1Gi
+          storage: 2Gi
 
