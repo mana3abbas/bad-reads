@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: monasamir/frontend:v3
+        image: monasamir/frontend:v4
         ports:
         - containerPort: 3000 
 
