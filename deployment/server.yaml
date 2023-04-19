@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: server 
-        image: monasamir/server:v46
+        image: monasamir/server:v${BUILD_NUMBER} 
         ports:
         - containerPort: 4000
         env:
