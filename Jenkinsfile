@@ -8,13 +8,13 @@ pipeline {
                     {
                        sh """
                             docker login -u $USERNAME -p $PASSWORD
-                            docker build -t monasamir/server:v${BUILD_NUMBER} -f $WORKSPACE/badreads-backend/Dockerfile .
+                            docker build -t monasamir/server:v${BUILD_NUMBER} $WORKSPACE/badreads-backend/ 
                             docker push monasamir/server:v${BUILD_NUMBER} 
                        """
                    
                        sh """
                             docker login -u $USERNAME -p $PASSWORD
-                            docker build -t monasamir/client:v${BUILD_NUMBER} -f $WORKSPACE/badreads-frontend/Dockerfile . 
+                            docker build -t monasamir/client:v${BUILD_NUMBER} $WORKSPACE/badreads-frontend/
                             docker push monasamir/client:v${BUILD_NUMBER}
                        """
                    }
@@ -27,13 +27,13 @@ pipeline {
                      withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')]) 
                      {
                       sh """
-                          mv Deployment/server.yaml Deployment/deploy.yaml.tmp
-                          cat Deployment/deploy.yaml.tmp | envsubst > Deployment/server.yaml
-                          rm -f Deployment/deploy.yaml.tmp
-                          mv Deployment/client.yaml Deployment/deploy.yaml.tmp
-                          cat Deployment/deploy.yaml.tmp | envsubst > Deployment/client.yaml
-                          rm -f Deployment/deploy.yaml.tmp
-                          kubectl apply -f Deployment --kubeconfig ${KUBECONFIG}
+                          mv deployment/server.yaml deployment/deploy.yaml.tmp
+                          cat deployment/deploy.yaml.tmp | envsubst > deployment/server.yaml
+                          rm -f deployment/deploy.yaml.tmp
+                          mv deployment/client.yaml deployment/deploy.yaml.tmp
+                          cat deployment/deploy.yaml.tmp | envsubst > deployment/client.yaml
+                          rm -f deployment/deploy.yaml.tmp
+                          kubectl apply -f deployment --kubeconfig ${KUBECONFIG}
                         """
                      }
                 
