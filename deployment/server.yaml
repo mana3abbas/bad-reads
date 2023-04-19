@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: server 
-        image: monasamir/backend:v${BUILD_NUMBER} 
+        image: monasamir/server:v${BUILD_NUMBER} 
         ports:
         - containerPort: 4000
