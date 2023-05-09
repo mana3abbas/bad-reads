@@ -7,9 +7,9 @@ pipeline {
                    withCredentials([usernamePassword(credentialsId: 'dockerhubaccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) 
                     {
                        sh """
-                            sudo docker login -u $USERNAME -p $PASSWORD
-                            sudo docker build -t monasamir/server:v${BUILD_NUMBER} $WORKSPACE/badreads-backend/ 
-                            sudo docker push monasamir/server:v${BUILD_NUMBER} 
+                            docker login -u $USERNAME -p $PASSWORD
+                            docker build -t monasamir/server:v${BUILD_NUMBER} $WORKSPACE/badreads-backend/ 
+                            docker push monasamir/server:v${BUILD_NUMBER} 
                        """
                    
                        sh """
