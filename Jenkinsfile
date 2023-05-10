@@ -23,11 +23,19 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                {
+                 
+                     withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')]) 
+                     {
                       sh """
-                          helm install vois${BUILD_NUMBER} onboard-task $WORKSPACE/HELM/onboard-task
+                          mv deployment/server.yaml deployment/deploy.yaml.tmp
+                          cat deployment/deploy.yaml.tmp | envsubst > deployment/server.yaml
+                          rm -f deployment/deploy.yaml.tmp
+                          mv deployment/client.yaml deployment/deploy.yaml.tmp
+                          cat deployment/deploy.yaml.tmp | envsubst > deployment/client.yaml
+                          rm -f deployment/deploy.yaml.tmp
+                          kubectl apply -f deployment --kubeconfig ${KUBECONFIG}
                         """
-                }
+                     }
                 
             }
         }
