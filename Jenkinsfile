@@ -22,10 +22,11 @@ pipeline {
             }
         }
         stage('deploy') {
-            steps { 
-                    {
+            steps {
+                 
+                     withCredentials([file(credentialsId: 'kubeconfig-credi', variable: 'KUBECONFIG')]) {
                       sh """
-                            helm install vois${BUILD_NUMBER} onboard-task $WORKSPACE/HELM/onbo
+                         helm install vois${BUILD_NUMBER} onboard-task $WORKSPACE/HELM/onboard-task
                         """
                      }
                 
